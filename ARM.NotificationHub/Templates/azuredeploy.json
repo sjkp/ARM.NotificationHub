@@ -7,26 +7,26 @@
       "metadata": {
         "description": "Google Cloud Messaging API Key"
       },
-      "defaultValue": "test"
+      "defaultValue": "AIzaSyAyp9MernKgMS3wFNM3yNWByiP-TaGrqEg"
     },
     "APNS.Certificate": {
       "type": "string",
       "metadata": {
-        "description": "Microsoft.NotificationHubs/namespaces/notificationHubs: A certificate (in base 64 format) provided by Apple on the iOS Provisioning Portal"
+        "description": "A certificate (in base 64 format) provided by Apple on the iOS Provisioning Portal"
       },
       "defaultValue": ""
     },
     "APNS.certificateKey": {
       "type": "string",
       "metadata": {
-        "description": "Microsoft.NotificationHubs/namespaces/notificationHubs: The Certificate Key provided by the iOS Provisioning Portal when registering the application"
+        "description": "The Certificate Key provided by the iOS Provisioning Portal when registering the application"
       },
-      "defaultValue": "MIIDpzCCAo+gAwIBAgIJANkaIbZ6AttqMA0GCSqGSIb3DQEBBQUAMGoxCzAJBgNVBAYTAkRLMQwwCgYDVQQIDANDUEgxDDAKBgNVBAcMA0NQSDEQMA4GA1UECgwHc2prcC5kazEQMA4GA1UEAwwHc2prcC5kazEbMBkGCSqGSIb3DQEJARYMbWFpbEBzamtwLmRrMB4XDTE2MDIxNTIxMjIxOFoXDTI2MDIxMjIxMjIxOFowajELMAkGA1UEBhMCREsxDDAKBgNVBAgMA0NQSDEMMAoGA1UEBwwDQ1BIMRAwDgYDVQQKDAdzamtwLmRrMRAwDgYDVQQDDAdzamtwLmRrMRswGQYJKoZIhvcNAQkBFgxtYWlsQHNqa3AuZGswggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDj9bYR0my6dfVO/2SK7ORASo+9eRcUSJzILXbtGY6O5WlB8dWtKh+EcJA10PvyMzNUR3cokJ/zMHjfAg43GJL7bu4AmdePsweFiNDeSi/ooOUO9fQI8u9uojvwh5nw/4EpLvL1ICFncj+UWY3ZaMnX/TEH2lXd1E+34VorGP9SaqiZjRowYhH3hUYj9Dp3WepproOB6ewTNWS0cxhdznp5SJw3EYFi3KDwb+wecAz10YHTvSOUDdhIUpDw4qwDb0hKdHgV91sc3k/Dwt8xszhvNAcydVcbKo52vae1dXVLY+bR2MV/VnOc+pJI6v2waYoc/wuZwQhsnKYpoHP1AD8bAgMBAAGjUDBOMB0GA1UdDgQWBBShDAs5adf2C1llUyLUa0+0yjrarTAfBgNVHSMEGDAWgBShDAs5adf2C1llUyLUa0+0yjrarTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQBC7NaL55rUnUq8A1/g/b+ynbYHJElMotZUF2ozvCKuYKLEZvxm7S18qtUjQnr9qkYmmz0cLuPsgT5vwh12JOote/q0GNKZG0VC4kuyp4a/wyn4CbK4/Yt/1AczYdqRDhgEFqL2mVDXlVSgllnzaSUo5OeR8egN86JVHiM/WG1lRfe2lD6T6Xl1IgjsmbuMfGi5krpT6BH4UXSt+dl7wXVkFc6Od19fDpO0W6xWgR8hVHGqVE1PQqUjFacKQXEAv8I+I5hb9GVM9rhSTPh4V+h0rUOnG6D6D4cl7dKA9Ygr6AD/JU9C8KW7QrZmwgXrWqpccz/si4X8wMt5SG8AwIGx"
+      "defaultValue": "ce469bf21dfa7b9d595d4999bfaca8a94ea47e46"
     },
-    "endpoint": {
+    "APNS.endpoint": {
       "type": "string",
       "metadata": {
-        "description": "Microsoft.NotificationHubs/namespaces/notificationHubs: The APNS endpoint to which our service connects. This is one of two values: gateway.sandbox.push.apple.com for the sandbox endpoint or gateway.push.apple.com, for the production endpoint. Any other value is invalid."
+        "description": "The APNS endpoint to which our service connects. This is one of two values: gateway.sandbox.push.apple.com for the sandbox endpoint or gateway.push.apple.com, for the production endpoint. Any other value is invalid."
       },
       "allowedValues": [
         "gateway.sandbox.push.apple.com",
@@ -37,8 +37,8 @@
   },
   "variables": {
     "hubVersion": "[providers('Microsoft.NotificationHubs', 'namespaces').apiVersions[0]]",
-    "notificationHubNamespace": "[concat('hug', uniqueString(resourceGroup().id))]",
-    "notificationHubName": "nhub"
+    "notificationHubNamespace": "[concat('hubv2', uniqueString(resourceGroup().id))]",
+    "notificationHubName": "notificationhub"
   },
   "resources": [
     {
@@ -62,14 +62,7 @@
                 "googleApiKey": "[parameters('Gcm.GoogleApiKey')]",
                 "gcmEndpoint": "https://android.googleapis.com/gcm/send"
               }
-            },
-            "apnsCredential": {
-              "properties": {
-                "apnsCertificate": "[parameters('APNS.Certificate')]",
-                "certificateKey": "[parameters('APNS.certificateKey')]",
-                "endpoint": ""
-              }
-            }
+            }                    
           },
           "dependsOn": [
             "[concat('Microsoft.NotificationHubs/namespaces/', variables('NotificationHubNamespace'))]"
