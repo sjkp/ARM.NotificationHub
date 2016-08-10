@@ -65,7 +65,7 @@
             }                    
           },
           "dependsOn": [
-            "[concat('Microsoft.NotificationHubs/namespaces/', variables('NotificationHubNamespace'))]"
+            "[variables('NotificationHubNamespace')]"
           ]
         }
       ]
